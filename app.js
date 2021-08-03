@@ -21,7 +21,7 @@ async function cron() {
         console.log(messages)
         // TODO: Schedule telegram messages to send when stamina reaches minimum within hour
         // TODO: Perform fight transaction and just notify of results
-        sendMessage(messages, user.chat_id)
+        // sendMessage(messages, user.chat_id)
     }
 }
 
@@ -69,18 +69,19 @@ async function check(rules, address, prices) {
         const targets = await web3.characterTargets(char.id, strongest.id)
         const enemies = await utils.getEnemyDetails(targets)
         const staminaCost = Math.floor(char.stamina/40)
-        var weakestEnemy = {"chance":rules.minchance}
+        var weakestEnemy = {"chance":rules.minchance, "index":-1}
         for (var k=0; k<enemies.length; k++){
             const enemy = enemies[k]
             const chance = utils.getWinChance(char, strongest, enemy.power, enemy.trait)
 
-            if (chance > weakestEnemy.chance || (char.stamina >= rules.maxstamina && !weakestEnemy.index)) {
+            if (chance > weakestEnemy.chance || (char.stamina >= rules.maxstamina && weakestEnemy.index == -1)) {
               enemy.chance = chance
               enemy.index = k
               weakestEnemy = enemy
             }
         }
         if(weakestEnemy.index > -1) {
+          // TODO: Warn if next milestone is achievable with lower stamina fight
           const reward = fromEther(await web3.usdToSkill(web3.web3.utils.toBN(prices.fightGasOffset + ((prices.fightBaseline * Math.sqrt(parseInt(weakestEnemy.power) / 1000)) * staminaCost))));
           const revenue = reward*prices.skillPrice
           const profit = revenue-prices.cost
@@ -119,7 +120,7 @@ async function priceTicker() {
         }
         const data = JSON.parse(body)
         prices.skillPrice = data.cryptoblades['usd']
-        prices.cost = data.binancecoin['usd']*0.0009
+        prices.cost = data.binancecoin['usd']*0.000703
         resolve(prices)
     })
   })

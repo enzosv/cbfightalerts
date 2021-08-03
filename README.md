@@ -15,5 +15,9 @@ This is a node app that notifies you on telegram when your characters have a goo
 3. `node app.js`
 You can also set it up in a cron to run every hour.
 
+## Screenshots
+![chat](/screenshots/chat.png)
+![log](/screenshots/log.png)
+
 ## License
 MIT

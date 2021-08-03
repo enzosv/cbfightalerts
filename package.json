@@ -1,0 +1,15 @@
+{
+  "name": "express-mvc-boilerplate",
+  "version": "1.0.0",
+  "description": "A simple mvc boilerplate for express.js",
+  "private": true,
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.2",
+    "web3": "^1.4.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+    "tg_bot_id":"",
+    "users":[
+        {
+            "owner": "",
+            "chat_id": "from telegram",
+            "rules":{
+                "minchance": 0.95,
+                "minstamina": 158,
+                "maxstamina": 185
+            },
+            "addresses": [{
+                "address": "public wallet address from metamask",
+                "nickname": "🔥🌲💧⚡️"
+            }]
+        }
+    ]
+}
